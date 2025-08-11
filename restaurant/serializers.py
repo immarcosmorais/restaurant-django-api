@@ -1,12 +1,22 @@
 from rest_framework import serializers
 
 from .models import Customer, Table, Reservation, Dish, Order, Payment, OrderItem, Review
+from .validators import invalid_phone, invalid_email, invalid_name
 
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = "__all__"
+
+    def validate(self, attrs):
+        if invalid_phone(attrs.get('phone')):
+            raise serializers.ValidationError({"phone": "Phone must be a valid phone number with 13 characters."})
+        if invalid_email(attrs.get('email')):
+            raise serializers.ValidationError({"email": "Email must be a valid email address."})
+        if invalid_name(attrs.get('name')):
+            raise serializers.ValidationError({"name": "Name must be at least 3 characters long and contain only letters."})
+        return attrs
 
 
 class TableSerializer(serializers.ModelSerializer):

@@ -15,7 +15,7 @@ class Bean(models.Model):
 class Customer(Bean):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=20, blank=True, null=True)
+    phone = models.CharField(max_length=13, unique=True)
 
 
 class Table(Bean):
@@ -113,7 +113,7 @@ class Payment(Bean):
 
 
 class Review(Bean):
-    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
     rating = models.IntegerField(default=1, choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField(blank=True, null=True)

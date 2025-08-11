@@ -1,6 +1,7 @@
 from rest_framework import viewsets, generics
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Customer, Table, Reservation, Dish, Order, Payment, Review
 from .serializers import CustomerSerializer, TableSerializer, ReservationSerializer, DishSerializer, OrderSerializer, \
@@ -12,6 +13,10 @@ class CustomerViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name', 'email', 'phone', 'created_at', 'updated_at']
+    search_fields = ['name', 'email', 'phone', 'created_at', 'updated_at']
+    ordering_fields = ['name', 'email', 'phone', 'created_at', 'updated_at']
 
 
 class TableViewSet(viewsets.ModelViewSet):
@@ -19,6 +24,10 @@ class TableViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Table.objects.all()
     serializer_class = TableSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['number', 'capacity', 'available', 'created_at', 'updated_at']
+    search_fields = ['number', 'capacity', 'available', 'created_at', 'updated_at']
+    ordering_fields = ['number', 'capacity', 'available', 'created_at', 'updated_at']
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
@@ -26,13 +35,21 @@ class ReservationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['customer__name', 'table__number', 'status', 'reservation_date', 'created_at', 'updated_at']
+    search_fields = ['customer__name', 'table__number', 'status', 'reservation_date', 'created_at', 'updated_at']
+    ordering_fields = ['customer__name', 'table__number', 'status', 'reservation_date', 'created_at', 'updated_at']
 
 
-class MenuViewSet(viewsets.ModelViewSet):
+class DishViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name', 'description', 'price', 'category', 'created_at', 'updated_at']
+    search_fields = ['name', 'description', 'price', 'category', 'created_at', 'updated_at']
+    ordering_fields = ['name', 'description', 'price', 'category', 'created_at', 'updated_at']
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -40,6 +57,10 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['customer__name', 'total_price', 'status', 'created_at', 'updated_at']
+    search_fields = ['customer__name', 'total_price', 'status', 'created_at', 'updated_at']
+    ordering_fields = ['customer__name', 'total_price', 'status', 'created_at', 'updated_at']
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -47,6 +68,8 @@ class PaymentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['customer__name', 'amount', 'payment_date', 'status']
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -54,6 +77,10 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['order__id', 'customer', 'rating', 'created_at']
+    search_fields = ['order__id', 'customer__name', 'rating', 'created_at']
+    ordering_fields = ['order__id', 'customer__name', 'rating', 'created_at']
 
 
 class ListOrdersByCustomerView(generics.ListAPIView):

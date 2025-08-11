@@ -15,7 +15,8 @@ class CustomerSerializer(serializers.ModelSerializer):
         if invalid_email(attrs.get('email')):
             raise serializers.ValidationError({"email": "Email must be a valid email address."})
         if invalid_name(attrs.get('name')):
-            raise serializers.ValidationError({"name": "Name must be at least 3 characters long and contain only letters."})
+            raise serializers.ValidationError(
+                {"name": "Name must be at least 3 characters long and contain only letters."})
         return attrs
 
 

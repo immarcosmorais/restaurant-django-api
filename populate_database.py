@@ -67,16 +67,25 @@ products = [
      "price": 16.90, "category": "Sobremesas"},
     {"name": "Bolo de Cenoura com Chocolate", "description": "Bolo de cenoura coberto com calda de chocolate.",
      "price": 10.90, "category": "Sobremesas"},
-    {"name": "Quiche de Alho Poró", "description": "Quiche cremosa de alho poró com massa crocante.", "price": 13.90, "category": "Salgados"},
-        {"name": "Pastel de Queijo", "description": "Pastel frito recheado com queijo derretido.", "price": 6.50, "category": "Salgados"},
-        {"name": "Tapioca de Coco com Leite Condensado", "description": "Tapioca recheada com coco ralado e leite condensado.", "price": 10.90, "category": "Sobremesas"},
-        {"name": "Refrigerante Lata", "description": "Refrigerante em lata de diversos sabores.", "price": 6.00, "category": "Bebidas"},
-        {"name": "Espetinho de Frango", "description": "Espetinho de frango grelhado com tempero especial.", "price": 8.00, "category": "Aperitivos"},
-        {"name": "Bruschetta Italiana", "description": "Pão italiano com tomate, manjericão e azeite.", "price": 11.90, "category": "Aperitivos"},
-        {"name": "Sorvete de Pistache", "description": "Sorvete artesanal de pistache.", "price": 12.00, "category": "Sobremesas"},
-        {"name": "Água Mineral", "description": "Água mineral sem gás.", "price": 4.00, "category": "Bebidas"},
-        {"name": "Panqueca de Carne", "description": "Panqueca recheada com carne moída ao molho de tomate.", "price": 18.90, "category": "Massas"},
-        {"name": "Esfiha de Carne", "description": "Esfiha aberta recheada com carne temperada.", "price": 5.90, "category": "Salgados"}
+    {"name": "Quiche de Alho Poró", "description": "Quiche cremosa de alho poró com massa crocante.", "price": 13.90,
+     "category": "Salgados"},
+    {"name": "Pastel de Queijo", "description": "Pastel frito recheado com queijo derretido.", "price": 6.50,
+     "category": "Salgados"},
+    {"name": "Tapioca de Coco com Leite Condensado",
+     "description": "Tapioca recheada com coco ralado e leite condensado.", "price": 10.90, "category": "Sobremesas"},
+    {"name": "Refrigerante Lata", "description": "Refrigerante em lata de diversos sabores.", "price": 6.00,
+     "category": "Bebidas"},
+    {"name": "Espetinho de Frango", "description": "Espetinho de frango grelhado com tempero especial.", "price": 8.00,
+     "category": "Aperitivos"},
+    {"name": "Bruschetta Italiana", "description": "Pão italiano com tomate, manjericão e azeite.", "price": 11.90,
+     "category": "Aperitivos"},
+    {"name": "Sorvete de Pistache", "description": "Sorvete artesanal de pistache.", "price": 12.00,
+     "category": "Sobremesas"},
+    {"name": "Água Mineral", "description": "Água mineral sem gás.", "price": 4.00, "category": "Bebidas"},
+    {"name": "Panqueca de Carne", "description": "Panqueca recheada com carne moída ao molho de tomate.",
+     "price": 18.90, "category": "Massas"},
+    {"name": "Esfiha de Carne", "description": "Esfiha aberta recheada com carne temperada.", "price": 5.90,
+     "category": "Salgados"}
 ]
 
 # Authentication credentials
@@ -99,13 +108,25 @@ fake = Faker("pt_BR")
 url = "http://localhost:8000/customers/"
 num_customers = 1000
 
+import random
+
+
+def generate_brazilian_phone():
+    ddd = random.randint(11, 99)
+    first = random.randint(90000, 99999)
+    last = random.randint(1000, 9999)
+    return f"{ddd:02d} {first}-{last:04d}"
+
+
 # Gerar 100 clientes fictícios
 customers = []
 for _ in range(num_customers):
+    # phone = fake.msisdn()  # Generates a Brazilian mobile number (11 digits)
+    # phone = phone.ljust(13, '0')[:13]  # Pad with zeros if needed
     customer = {
         "name": fake.name(),
         "email": fake.email(),
-        "phone": fake.phone_number(),
+        "phone": generate_brazilian_phone(),
         "address": fake.address(),
     }
     customers.append(customer)

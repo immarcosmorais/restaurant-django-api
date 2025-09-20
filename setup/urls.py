@@ -18,8 +18,8 @@ schema_view = get_schema_view(
       contact=openapi.Contact(email="marcosmorais.contact@gmail.com"),
       # license=openapi.License(name="BSD License"),
    ),
-   public=True
-   # permission_classes=(permissions.AllowAny,),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
 )
 
 router = routers.DefaultRouter()

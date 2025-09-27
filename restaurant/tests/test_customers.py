@@ -7,23 +7,30 @@ from rest_framework import status
 
 class CustomersTestCase(APITestCase):
 
+    fixtures = ['data_prototype.json']
+
     def setUp(self):
-        self.user = User.objects.create_superuser(
-            username="admin",
-            password="admin123",
-        )
+        self.user = User.objects.get(username="marcos")
+        # self.user = User.objects.create_superuser(
+        #     username="admin",
+        #     password="admin123",
+        # )
         self.url = reverse("Customers-list")
         self.client.force_authenticate(self.user)
-        self.customer_001 = Customer.objects.create(
-            name="Customer One",
-            email="customer001@exemple.com",
-            phone="11 91111-1111"
-        )
-        self.customer_002 = Customer.objects.create(
-            name="Customer Two",
-            email="customer0012@exemple.com",
-            phone="11 92222-2222"
-        )
+        # self.customer_001 = Customer.objects.create(
+        #     name="Customer One",
+        #     email="customer001@exemple.com",
+        #     phone="11 91111-1111"
+        # )
+        # self.customer_002 = Customer.objects.create(
+        #     name="Customer Two",
+        #     email="customer0012@exemple.com",
+        #     phone="11 92222-2222"
+        # )
+
+        self.customer_001 = Customer.objects.get(id=1)
+        self.customer_002 = Customer.objects.get(id=2)
+
 
     def test_list_customers(self):
         """

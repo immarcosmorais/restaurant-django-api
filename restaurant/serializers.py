@@ -58,6 +58,19 @@ class OrderSerializer(serializers.ModelSerializer):
             OrderItem.objects.create(order=order, **item)
         return order
 
+    def update(self, instance, validated_data):
+        items = validated_data.pop('order_items', None)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        if items is not None:
+            instance.order_items.all().delete()
+            for item in items:
+                OrderItem.objects.create(order=instance, **item)
+
+        return instance
+
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:

@@ -68,7 +68,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all().order_by('id')
     serializer_class = PaymentSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['customer__name', 'amount', 'payment_date', 'status']
+    filterset_fields = ['customer__name', 'total_price', 'payment_method', 'discount']
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -77,9 +77,9 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all().order_by('id')
     serializer_class = ReviewSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['order__id', 'customer', 'rating', 'created_at']
-    search_fields = ['order__id', 'customer__name', 'rating', 'created_at']
-    ordering_fields = ['order__id', 'customer__name', 'rating', 'created_at']
+    filterset_fields = ['customer', 'rating', 'created_at']
+    search_fields = [ 'customer__name', 'rating', 'created_at']
+    ordering_fields = ['customer__name', 'rating', 'created_at']
 
 
 class ListOrdersByCustomerView(generics.ListAPIView):

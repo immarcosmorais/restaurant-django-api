@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.test import TestCase
 from restaurant.models import Customer, Table, Reservation, Dish, Order, Payment, Review
 
@@ -14,9 +16,9 @@ class ModelCustomerTestCase(TestCase):
         """
         Test to check attributes of customer's model
         """
-        self.assertEquals(self.customer.name, "Customer created for testing")
-        self.assertEquals(self.customer.email, "customer@email.com")
-        self.assertEquals(self.customer.phone, "(11) 91111-1111")
+        self.assertEqual(self.customer.name, "Customer created for testing")
+        self.assertEqual(self.customer.email, "customer@email.com")
+        self.assertEqual(self.customer.phone, "(11) 91111-1111")
 
 
 class ModelTableTestCase(TestCase):
@@ -32,9 +34,9 @@ class ModelTableTestCase(TestCase):
         """
         Test to check attributes of table's model
         """
-        self.assertEquals(self.table.number, 1)
-        self.assertEquals(self.table.capacity, 4)
-        self.assertEquals(self.table.available, True)
+        self.assertEqual(self.table.number, 1)
+        self.assertEqual(self.table.capacity, 4)
+        self.assertEqual(self.table.available, True)
 
 
 class ModelReservationTestCase(TestCase):
@@ -60,9 +62,9 @@ class ModelReservationTestCase(TestCase):
         """
         Test to check attributes of reservation's model
         """
-        self.assertEquals(self.reservation.customer, self.customer)
-        self.assertEquals(self.reservation.table, self.table)
-        self.assertEquals(self.reservation.status, "confirmed")
+        self.assertEqual(self.reservation.customer, self.customer)
+        self.assertEqual(self.reservation.table, self.table)
+        self.assertEqual(self.reservation.status, "confirmed")
 
 class ModelDishTestCase(TestCase):
 
@@ -78,10 +80,10 @@ class ModelDishTestCase(TestCase):
         """
         Test to check attributes of dish's model
         """
-        self.assertEquals(self.dish.name, "Dish created for testing")
-        self.assertEquals(self.dish.description, "Description of the dish created for testing")
-        self.assertEquals(self.dish.price, 19.90)
-        self.assertEquals(self.dish.category, "Category of the dish created for testing")
+        self.assertEqual(self.dish.name, "Dish created for testing")
+        self.assertEqual(self.dish.description, "Description of the dish created for testing")
+        self.assertEqual(self.dish.price, 19.90)
+        self.assertEqual(self.dish.category, "Category of the dish created for testing")
 
 class ModelOrderTestCase(TestCase):
 
@@ -93,7 +95,7 @@ class ModelOrderTestCase(TestCase):
         )
         self.order = Order.objects.create(
             customer=self.customer,
-            total_price = 59.70,
+            total_price = Decimal('59.70'),
             status="confirmed"
         )
 
@@ -101,9 +103,9 @@ class ModelOrderTestCase(TestCase):
         """
         Test to check attributes of order's model
         """
-        self.assertEquals(self.order.customer, self.customer)
-        self.assertEquals(self.order.total_price, 59.70)
-        self.assertEquals(self.order.status, "confirmed")
+        self.assertEqual(self.order.customer, self.customer)
+        self.assertEqual(self.order.total_price, Decimal('59.70'))
+        self.assertEqual(self.order.status, "confirmed")
 
 class ModelPaymentTestCase(TestCase):
 
@@ -115,14 +117,14 @@ class ModelPaymentTestCase(TestCase):
         )
         self.order = Order.objects.create(
             customer=self.customer,
-            total_price=59.70,
+            total_price=Decimal('59.70'),
             status="confirmed"
         )
         self.payment = Payment.objects.create(
             order=self.order,
             customer=self.customer,
-            total_price=59.70,
-            discount=0,
+            total_price=Decimal('59.70'),
+            discount=Decimal('00.00'),
             payment_method="credit_card"
         )
 
@@ -130,11 +132,11 @@ class ModelPaymentTestCase(TestCase):
         """
         Test to check attributes of payment's model
         """
-        self.assertEquals(self.payment.order, self.order)
-        self.assertEquals(self.payment.customer, self.customer)
-        self.assertEquals(self.payment.total_price, 59.70)
-        self.assertEquals(self.payment.discount, 0)
-        self.assertEquals(self.payment.payment_method, "credit_card")
+        self.assertEqual(self.payment.order, self.order)
+        self.assertEqual(self.payment.customer, self.customer)
+        self.assertEqual(self.payment.total_price, Decimal('59.70'))
+        self.assertEqual(self.payment.discount, Decimal('00.00'))
+        self.assertEqual(self.payment.payment_method, "credit_card")
 
 class ModelReviewTestCase(TestCase):
 
@@ -161,7 +163,7 @@ class ModelReviewTestCase(TestCase):
         """
         Test to check attributes of review's model
         """
-        self.assertEquals(self.review.customer, self.customer)
-        self.assertEquals(self.review.dish, self.dish)
-        self.assertEquals(self.review.rating, 5)
-        self.assertEquals(self.review.comment, "This is a comment for testing")
+        self.assertEqual(self.review.customer, self.customer)
+        self.assertEqual(self.review.dish, self.dish)
+        self.assertEqual(self.review.rating, 5)
+        self.assertEqual(self.review.comment, "This is a comment for testing")

@@ -104,11 +104,12 @@ class Payment(Bean):
     payment_method = models.CharField(max_length=50, choices=PAYMENT_METHODS_CHOICES, default="cash")
 
     def save(self, *args, **kwargs):
-        if self.order.status == "paid":
-            raise ValidationError(f"Order {self.order.id} is already paid")
-        self.order.status = "paid"
+        if self.order.status != "paid":
+            self.order.status = "paid"
+        order_total = Decimal(str(self.order.total_price))
+        discount = Decimal(str(self.discount))
         self.order.save()
-        self.total_price = self.order.total_price - self.discount
+        self.total_price = order_total - discount
         super().save(*args, **kwargs)
 
 

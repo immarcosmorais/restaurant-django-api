@@ -17,16 +17,16 @@ class SerializerCustomerTestCase(TestCase):
         Test to check serialized fields of customer's serializer
         """
         data = self.serializer_customer.data
-        self.assertEquals(set(data.keys()), {"id", "name", "email", "phone", "created_at", "updated_at"})
+        self.assertEqual(set(data.keys()), {"id", "name", "email", "phone", "created_at", "updated_at"})
 
     def test_to_check_content_of_fields_of_customer_serializer(self):
         """
         Test to check content of serialized fields of customer's serializer
         """
         data = self.serializer_customer.data
-        self.assertEquals(data["name"], self.customer.name)
-        self.assertEquals(data["email"], self.customer.email)
-        self.assertEquals(data["phone"], self.customer.phone)
+        self.assertEqual(data["name"], self.customer.name)
+        self.assertEqual(data["email"], self.customer.email)
+        self.assertEqual(data["phone"], self.customer.phone)
 
 
 class SerializerTableTestCase(TestCase):
@@ -43,16 +43,16 @@ class SerializerTableTestCase(TestCase):
         Test to check serialized fields of table's serializer
         """
         data = self.serializer_table.data
-        self.assertEquals(set(data.keys()), {"id", "number", "capacity", "available", "created_at", "updated_at"})
+        self.assertEqual(set(data.keys()), {"id", "number", "capacity", "available", "created_at", "updated_at"})
 
     def test_to_check_content_of_fields_of_table_serializer(self):
         """
         Test to check content of serialized fields of table's serializer
         """
         data = self.serializer_table.data
-        self.assertEquals(data["number"], self.table.number)
-        self.assertEquals(data["capacity"], self.table.capacity)
-        self.assertEquals(data["available"], self.table.available)
+        self.assertEqual(data["number"], self.table.number)
+        self.assertEqual(data["capacity"], self.table.capacity)
+        self.assertEqual(data["available"], self.table.available)
 
 class SerializerReservationTestCase(TestCase):
     def setUp(self):
@@ -78,16 +78,16 @@ class SerializerReservationTestCase(TestCase):
         Test to check serialized fields of reservation's serializer
         """
         data = self.serializer_reservation.data
-        self.assertEquals(set(data.keys()), {"id", "customer", "table", "reservation_date", "status", "created_at", "updated_at"})
+        self.assertEqual(set(data.keys()), {"id", "customer", "table", "reservation_date", "status", "created_at", "updated_at"})
 
     def test_to_check_content_of_fields_of_reservation_serializer(self):
         """
         Test to check content of serialized fields of reservation's serializer
         """
         data = self.serializer_reservation.data
-        self.assertEquals(data["customer"], self.reservation.customer.id)
-        self.assertEquals(data["table"], self.reservation.table.id)
-        self.assertEquals(data["status"], self.reservation.status)
+        self.assertEqual(data["customer"], self.reservation.customer.id)
+        self.assertEqual(data["table"], self.reservation.table.id)
+        self.assertEqual(data["status"], self.reservation.status)
 
 class SerializerDishTestCase(TestCase):
     def setUp(self):
@@ -104,17 +104,17 @@ class SerializerDishTestCase(TestCase):
         Test to check serialized fields of dish's serializer
         """
         data = self.serializer_dish.data
-        self.assertEquals(set(data.keys()), {"id", "name", "description", "price", "category", "created_at", "updated_at"})
+        self.assertEqual(set(data.keys()), {"id", "name", "description", "price", "category", "created_at", "updated_at"})
 
     def test_to_check_content_of_fields_of_dish_serializer(self):
         """
         Test to check content of serialized fields of dish's serializer
         """
         data = self.serializer_dish.data
-        self.assertEquals(data["name"], self.dish.name)
-        self.assertEquals(data["description"], self.dish.description)
-        self.assertEquals(float(data["price"]), float(self.dish.price))
-        self.assertEquals(data["category"], self.dish.category)
+        self.assertEqual(data["name"], self.dish.name)
+        self.assertEqual(data["description"], self.dish.description)
+        self.assertEqual(float(data["price"]), float(self.dish.price))
+        self.assertEqual(data["category"], self.dish.category)
 
 class SerializerOrderTestCase(TestCase):
     def setUp(self):
@@ -135,17 +135,17 @@ class SerializerOrderTestCase(TestCase):
         Test to check serialized fields of order's serializer
         """
         data = self.serializer_order.data
-        self.assertEquals(set(data.keys()), {"id", "customer", "total_price", "status", "items", "created_at", "updated_at"})
+        self.assertEqual(set(data.keys()), {"id", "customer", "total_price", "status", "items", "created_at", "updated_at"})
 
     def test_to_check_content_of_fields_of_order_serializer(self):
         """
         Test to check content of serialized fields of order's serializer
         """
         data = self.serializer_order.data
-        self.assertEquals(data["customer"], self.order.customer.id)
-        self.assertEquals(float(data["total_price"]), float(self.order.total_price))
-        self.assertEquals(data["status"], self.order.status)
-        self.assertEquals(data["items"], [])
+        self.assertEqual(data["customer"], self.order.customer.id)
+        self.assertEqual(float(data["total_price"]), float(self.order.total_price))
+        self.assertEqual(data["status"], self.order.status)
+        self.assertEqual(data["items"], [])
 
 class SerializerPaymentTestCase(TestCase):
 
@@ -174,15 +174,15 @@ class SerializerPaymentTestCase(TestCase):
         Test to check serialized fields of payment's serializer
         """
         data = self.serializer_payment.data
-        self.assertEquals(set(data.keys()), {"id", "order", "customer", "total_price", "discount", "payment_method", "created_at", "updated_at"})
+        self.assertEqual(set(data.keys()), {"id", "order", "customer", "total_price", "discount", "payment_method", "created_at", "updated_at"})
 
     def test_to_check_content_of_fields_of_payment_serializer(self):
         """
         Test to check content of serialized fields of payment's serializer
         """
         data = self.serializer_payment.data
-        self.assertEquals(data["order"], self.payment.order.id)
-        self.assertEquals(data["customer"], self.payment.customer.id)
-        self.assertEquals(float(data["total_price"]), float(self.payment.total_price))
-        self.assertEquals(float(data["discount"]), float(self.payment.discount))
-        self.assertEquals(data["payment_method"], self.payment.payment_method)
+        self.assertEqual(data["order"], self.payment.order.id)
+        self.assertEqual(data["customer"], self.payment.customer.id)
+        self.assertEqual(float(data["total_price"]), float(self.payment.total_price))
+        self.assertEqual(float(data["discount"]), float(self.payment.discount))
+        self.assertEqual(data["payment_method"], self.payment.payment_method)
